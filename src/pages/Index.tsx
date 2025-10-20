@@ -120,13 +120,47 @@ const Index = () => {
               </Button>
             </div>
           ) : (
-            <Button 
-              onClick={() => setShowAuthModal(true)} 
-              className="text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700"
-            >
-              <Icon name="LogIn" size={18} className="mr-2" />
-              Вход
-            </Button>
+            <div className="flex items-center gap-3">
+              <Input 
+                placeholder="Логин" 
+                className="h-10 w-32 bg-white/5 border-white/10 text-white text-sm"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <Input 
+                type="password" 
+                placeholder="Пароль" 
+                className="h-10 w-32 bg-white/5 border-white/10 text-white text-sm"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    setAuthMode('login');
+                    handleAuth(e as any);
+                  }
+                }}
+              />
+              <Button 
+                onClick={(e) => {
+                  setAuthMode('login');
+                  handleAuth(e as any);
+                }}
+                className="text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 h-10"
+                disabled={!username || !password}
+              >
+                <Icon name="LogIn" size={18} className="mr-2" />
+                Вход
+              </Button>
+              <button
+                onClick={() => {
+                  setAuthMode('register');
+                  setShowAuthModal(true);
+                }}
+                className="text-gray-400 hover:text-white text-sm transition-colors whitespace-nowrap"
+              >
+                Нет аккаунта?
+              </button>
+            </div>
           )}
         </div>
       </header>
@@ -434,17 +468,13 @@ const Index = () => {
       </section>
 
       {showAuthModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-[#1222b585]" onClick={() => setShowAuthModal(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-black/80" onClick={() => setShowAuthModal(false)}>
           <Card className="max-w-md w-full bg-[#1a1a2e] border-white/10 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <CardHeader>
               <div className="text-center mb-4">
                 <div className="text-6xl mb-4">💙</div>
-                <CardTitle className="text-2xl text-white">
-                  {authMode === 'register' ? 'Создай аккаунт' : 'Вход'}
-                </CardTitle>
-                <CardDescription className="text-gray-400 text-base">
-                  {authMode === 'register' ? 'Получи 1000 ЛК в подарок' : 'Рад видеть тебя снова!'}
-                </CardDescription>
+                <CardTitle className="text-2xl text-white">Создай аккаунт</CardTitle>
+                <CardDescription className="text-gray-400 text-base">Получи 1000 ЛК в подарок</CardDescription>
               </div>
             </CardHeader>
             <CardContent>
@@ -463,16 +493,14 @@ const Index = () => {
                   required
                 />
                 
-                {authMode === 'register' && (
-                  <Input 
-                    type="email" 
-                    placeholder="Email" 
-                    className="h-12 bg-white/5 border-white/10 text-white"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                )}
+                <Input 
+                  type="email" 
+                  placeholder="Email" 
+                  className="h-12 bg-white/5 border-white/10 text-white"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
                 
                 <Input 
                   type="password" 
@@ -485,19 +513,8 @@ const Index = () => {
                 
                 <Button type="submit" className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white h-12 text-lg font-bold border-0">
                   <Icon name="Rocket" size={20} className="mr-2" />
-                  {authMode === 'register' ? 'Начать 🚀' : 'Войти'}
+                  Начать 🚀
                 </Button>
-                
-                <button
-                  type="button"
-                  onClick={() => {
-                    setAuthMode(authMode === 'login' ? 'register' : 'login');
-                    setAuthError('');
-                  }}
-                  className="w-full text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  {authMode === 'register' ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
-                </button>
                 <div className="text-center">
                   <button 
                     type="button"
