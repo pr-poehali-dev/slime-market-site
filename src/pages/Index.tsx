@@ -434,7 +434,7 @@ const Index = () => {
       </section>
 
       {showAuthModal && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setShowAuthModal(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-[#1222b585]" onClick={() => setShowAuthModal(false)}>
           <Card className="max-w-md w-full bg-[#1a1a2e] border-white/10 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <CardHeader>
               <div className="text-center mb-4">
