@@ -17,8 +17,8 @@ const Index = () => {
       <header className="sticky top-0 z-50 w-full border-b border-blue-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/80 shadow-sm">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-4xl">💙</div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+            <div className="text-4xl float">💙</div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-500 to-yellow-500 bg-clip-text text-transparent animate-gradient">
               Лизунск
             </h1>
           </div>
@@ -30,7 +30,7 @@ const Index = () => {
           </nav>
           {isLoggedIn ? (
             <div className="flex items-center gap-3">
-              <Badge className="text-lg px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600">
+              <Badge className="text-lg px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 animate-gradient">
                 💰 {userBalance} ЛК
               </Badge>
               <Button size="sm" variant="outline">
@@ -39,7 +39,7 @@ const Index = () => {
               </Button>
             </div>
           ) : (
-            <Button onClick={() => setShowAuthModal(true)} className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
+            <Button onClick={() => setShowAuthModal(true)} className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 animate-gradient">
               <Icon name="LogIn" size={18} className="mr-2" />
               Войти 💙
             </Button>
@@ -47,11 +47,12 @@ const Index = () => {
         </div>
       </header>
 
-      <section id="home" className="py-16">
+      <section id="home" className="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 animate-gradient">
         <div className="container">
           <div className="grid lg:grid-cols-5 gap-8">
-            <Card className="hover-scale lg:col-span-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
-              <CardHeader>
+            <Card className="hover-scale lg:col-span-3 bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 text-white border-0 shadow-xl animate-gradient pulse-glow overflow-hidden relative">
+              <div className="absolute inset-0 shimmer pointer-events-none"></div>
+              <CardHeader className="relative z-10">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-4xl">🛒</span>
                   <CardTitle className="text-3xl text-white">Торговый рынок будущего</CardTitle>
@@ -60,7 +61,7 @@ const Index = () => {
                   Виртуальная валюта, крипта и современный шопинг 💙
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="relative z-10">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-white">
                     <Icon name="Zap" size={24} className="text-yellow-300" />
@@ -82,8 +83,9 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover-scale lg:col-span-2 bg-gradient-to-br from-yellow-300 to-yellow-400 border-0 shadow-xl">
-              <CardHeader>
+            <Card className="hover-scale lg:col-span-2 bg-gradient-to-br from-yellow-300 via-yellow-400 to-orange-400 border-0 shadow-xl animate-gradient overflow-hidden relative">
+              <div className="absolute inset-0 shimmer pointer-events-none"></div>
+              <CardHeader className="relative z-10">
                 <div className="flex items-center gap-2">
                   <span className="text-3xl">💎</span>
                   <CardTitle className="text-2xl text-blue-900">Крипто-баланс</CardTitle>
@@ -92,7 +94,7 @@ const Index = () => {
                   Твоя виртуальная валюта
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="relative z-10">
                 <div className="text-5xl font-bold text-blue-900 mb-4">
                   {isLoggedIn ? `${userBalance} ЛК` : '--- ЛК'}
                 </div>
@@ -119,8 +121,9 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mt-8">
-            <Card className="hover-scale border-blue-200 shadow-lg">
-              <CardHeader>
+            <Card className="hover-scale border-blue-200 shadow-lg overflow-hidden relative bg-gradient-to-br from-blue-100 to-blue-200 animate-gradient">
+              <div className="absolute inset-0 shimmer pointer-events-none"></div>
+              <CardHeader className="relative z-10">
                 <div className="text-4xl mb-2">⚡</div>
                 <CardTitle className="text-xl bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
                   Мгновенные транзакции
@@ -129,20 +132,22 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="hover-scale border-blue-200 shadow-lg">
-              <CardHeader>
+            <Card className="hover-scale border-yellow-200 shadow-lg overflow-hidden relative bg-gradient-to-br from-yellow-100 to-yellow-200 animate-gradient">
+              <div className="absolute inset-0 shimmer pointer-events-none"></div>
+              <CardHeader className="relative z-10">
                 <div className="text-4xl mb-2">🎁</div>
-                <CardTitle className="text-xl bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+                <CardTitle className="text-xl bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
                   Кэшбэк 10%
                 </CardTitle>
                 <CardDescription>Возврат лизкоинами на все покупки</CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="hover-scale border-blue-200 shadow-lg">
-              <CardHeader>
+            <Card className="hover-scale border-purple-200 shadow-lg overflow-hidden relative bg-gradient-to-br from-purple-100 to-pink-200 animate-gradient">
+              <div className="absolute inset-0 shimmer pointer-events-none"></div>
+              <CardHeader className="relative z-10">
                 <div className="text-4xl mb-2">🔒</div>
-                <CardTitle className="text-xl bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
+                <CardTitle className="text-xl bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   Безопасность
                 </CardTitle>
                 <CardDescription>Твои активы под защитой 💙</CardDescription>
@@ -152,17 +157,17 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="shops" className="py-16 bg-white/60">
+      <section id="shops" className="py-16 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 animate-gradient">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-green-600 via-emerald-500 to-teal-600 bg-clip-text text-transparent animate-gradient">
               Магазины 🛍️
             </h2>
             <p className="text-muted-foreground text-lg">500+ крутых мест для шопинга</p>
           </div>
 
           <Tabs defaultValue="all" className="w-full">
-            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-8 h-12 bg-blue-100">
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-8 h-12 bg-gradient-to-r from-green-100 to-teal-100">
               <TabsTrigger value="all" className="font-bold">Все 🔥</TabsTrigger>
               <TabsTrigger value="food" className="font-bold">Еда 🍕</TabsTrigger>
               <TabsTrigger value="clothes" className="font-bold">Одежда 👕</TabsTrigger>
@@ -172,25 +177,26 @@ const Index = () => {
             <TabsContent value="all">
               <div className="grid md:grid-cols-3 gap-6">
                 {[
-                  { name: 'Техномаркет', category: 'Электроника', cashback: '15%', icon: '📱', color: 'from-blue-500 to-blue-600' },
-                  { name: 'Стритвир', category: 'Одежда', cashback: '10%', icon: '👕', color: 'from-yellow-400 to-yellow-500' },
-                  { name: 'Фудкорт', category: 'Еда', cashback: '8%', icon: '🍕', color: 'from-blue-400 to-blue-500' },
-                  { name: 'Гейм Зона', category: 'Игры', cashback: '12%', icon: '🎮', color: 'from-yellow-500 to-yellow-600' },
-                  { name: 'Книжный', category: 'Книги', cashback: '5%', icon: '📚', color: 'from-blue-500 to-blue-600' },
-                  { name: 'Спорт Хаб', category: 'Спорт', cashback: '10%', icon: '⚽', color: 'from-yellow-400 to-yellow-500' },
+                  { name: 'Техномаркет', category: 'Электроника', cashback: '15%', icon: '📱', color: 'from-green-500 via-emerald-500 to-teal-500' },
+                  { name: 'Стритвир', category: 'Одежда', cashback: '10%', icon: '👕', color: 'from-teal-400 via-cyan-400 to-green-500' },
+                  { name: 'Фудкорт', category: 'Еда', cashback: '8%', icon: '🍕', color: 'from-emerald-400 via-green-500 to-teal-500' },
+                  { name: 'Гейм Зона', category: 'Игры', cashback: '12%', icon: '🎮', color: 'from-green-500 via-teal-500 to-cyan-600' },
+                  { name: 'Книжный', category: 'Книги', cashback: '5%', icon: '📚', color: 'from-teal-500 via-emerald-500 to-green-600' },
+                  { name: 'Спорт Хаб', category: 'Спорт', cashback: '10%', icon: '⚽', color: 'from-green-400 via-emerald-400 to-teal-500' },
                 ].map((shop, idx) => (
-                  <Card key={idx} className="hover-scale border-blue-200 shadow-lg overflow-hidden">
-                    <div className={`h-2 bg-gradient-to-r ${shop.color}`} />
-                    <CardHeader>
+                  <Card key={idx} className="hover-scale border-green-200 shadow-lg overflow-hidden relative">
+                    <div className={`h-2 bg-gradient-to-r ${shop.color} animate-gradient`} />
+                    <div className="absolute inset-0 shimmer pointer-events-none"></div>
+                    <CardHeader className="relative z-10">
                       <div className="flex items-start justify-between mb-3">
                         <div className="text-5xl">{shop.icon}</div>
-                        <Badge className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-blue-900 font-bold">
+                        <Badge className="bg-gradient-to-r from-green-400 to-teal-500 text-white font-bold animate-gradient">
                           {shop.cashback} кэшбэк 💰
                         </Badge>
                       </div>
                       <CardTitle className="text-xl">{shop.name}</CardTitle>
                       <CardDescription className="text-base">{shop.category}</CardDescription>
-                      <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
+                      <Button className="w-full mt-4 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600 hover:from-green-600 hover:to-teal-700 animate-gradient">
                         <Icon name="ShoppingCart" size={18} className="mr-2" />
                         Открыть магазин
                       </Button>
@@ -203,10 +209,10 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="crypto" className="py-16">
+      <section id="crypto" className="py-16 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 animate-gradient">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent animate-gradient">
               Криптовалюты 💎
             </h2>
             <p className="text-muted-foreground text-lg">Покупай, продавай и обменивай крипту</p>
@@ -214,13 +220,14 @@ const Index = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: 'Bitcoin', symbol: 'BTC', icon: '₿', price: '45,230', change: '+5.2%', color: 'from-orange-400 to-orange-500' },
-              { name: 'Ethereum', symbol: 'ETH', icon: 'Ξ', price: '3,120', change: '+3.8%', color: 'from-blue-500 to-blue-600' },
-              { name: 'Лизкоин', symbol: 'LZK', icon: '💙', price: '0.10', change: '+12.5%', color: 'from-yellow-400 to-yellow-500' },
-              { name: 'Solana', symbol: 'SOL', icon: '◎', price: '98.5', change: '+7.1%', color: 'from-purple-500 to-purple-600' },
+              { name: 'Bitcoin', symbol: 'BTC', icon: '₿', price: '45,230', change: '+5.2%', color: 'from-orange-400 via-orange-500 to-red-500' },
+              { name: 'Ethereum', symbol: 'ETH', icon: 'Ξ', price: '3,120', change: '+3.8%', color: 'from-purple-500 via-indigo-500 to-blue-600' },
+              { name: 'Лизкоин', symbol: 'LZK', icon: '💙', price: '0.10', change: '+12.5%', color: 'from-pink-400 via-rose-400 to-red-500' },
+              { name: 'Solana', symbol: 'SOL', icon: '◎', price: '98.5', change: '+7.1%', color: 'from-purple-500 via-purple-600 to-indigo-600' },
             ].map((crypto, idx) => (
-              <Card key={idx} className={`hover-scale bg-gradient-to-br ${crypto.color} text-white border-0 shadow-xl`}>
-                <CardHeader>
+              <Card key={idx} className={`hover-scale bg-gradient-to-br ${crypto.color} text-white border-0 shadow-xl animate-gradient overflow-hidden relative`}>
+                <div className="absolute inset-0 shimmer pointer-events-none"></div>
+                <CardHeader className="relative z-10">
                   <div className="flex justify-between items-start mb-4">
                     <div className="text-5xl">{crypto.icon}</div>
                     <Badge className="bg-green-500 text-white border-0 font-bold">
@@ -246,15 +253,16 @@ const Index = () => {
             ))}
           </div>
 
-          <Card className="mt-8 max-w-4xl mx-auto border-blue-200 shadow-xl">
-            <CardHeader>
+          <Card className="mt-8 max-w-4xl mx-auto border-purple-200 shadow-xl overflow-hidden relative">
+            <div className="absolute inset-0 shimmer pointer-events-none"></div>
+            <CardHeader className="relative z-10">
               <CardTitle className="text-2xl flex items-center gap-2">
                 <span className="text-3xl">⚡</span>
                 Быстрый обмен криптовалют
               </CardTitle>
               <CardDescription className="text-base">Конвертируй крипту в лизкоины за секунды</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="relative z-10">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="font-medium mb-2 block">Отдаешь</label>
@@ -275,7 +283,7 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <Button className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 h-12 text-lg font-bold">
+              <Button className="w-full mt-6 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:from-purple-600 hover:to-orange-600 h-12 text-lg font-bold animate-gradient">
                 <Icon name="Zap" size={20} className="mr-2" />
                 Обменять сейчас 🚀
               </Button>
@@ -284,52 +292,56 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="currency" className="py-16 bg-white/60">
+      <section id="currency" className="py-16 bg-gradient-to-br from-cyan-50 via-sky-50 to-indigo-50 animate-gradient">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-600 via-sky-500 to-indigo-600 bg-clip-text text-transparent animate-gradient">
               Лизкоины 💰
             </h2>
             <p className="text-muted-foreground text-lg">Внутренняя валюта рынка с крутыми бонусами</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="hover-scale border-blue-200 shadow-lg text-center">
-              <CardHeader>
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-4xl">
+            <Card className="hover-scale border-cyan-200 shadow-lg text-center overflow-hidden relative">
+              <div className="absolute inset-0 shimmer pointer-events-none"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500 via-sky-500 to-blue-600 flex items-center justify-center text-4xl animate-gradient">
                   🛒
                 </div>
                 <CardTitle className="text-xl">Покупай</CardTitle>
                 <CardDescription className="text-base">10% кэшбэк лизкоинами на каждую покупку</CardDescription>
-                <div className="text-3xl font-bold text-primary mt-4">+100 ЛК</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-sky-600 bg-clip-text text-transparent">+100 ЛК</div>
               </CardHeader>
             </Card>
 
-            <Card className="hover-scale border-blue-200 shadow-lg text-center">
-              <CardHeader>
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center text-4xl">
+            <Card className="hover-scale border-sky-200 shadow-lg text-center overflow-hidden relative">
+              <div className="absolute inset-0 shimmer pointer-events-none"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-500 flex items-center justify-center text-4xl animate-gradient">
                   💎
                 </div>
                 <CardTitle className="text-xl">Майни крипту</CardTitle>
                 <CardDescription className="text-base">Конвертируй криптовалюту в лизкоины</CardDescription>
-                <div className="text-3xl font-bold text-secondary mt-4">+500 ЛК</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">+500 ЛК</div>
               </CardHeader>
             </Card>
 
-            <Card className="hover-scale border-blue-200 shadow-lg text-center">
-              <CardHeader>
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-4xl">
+            <Card className="hover-scale border-indigo-200 shadow-lg text-center overflow-hidden relative">
+              <div className="absolute inset-0 shimmer pointer-events-none"></div>
+              <CardHeader className="relative z-10">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-600 flex items-center justify-center text-4xl animate-gradient">
                   🎁
                 </div>
                 <CardTitle className="text-xl">Получай бонусы</CardTitle>
                 <CardDescription className="text-base">Ежедневные задания и награды</CardDescription>
-                <div className="text-3xl font-bold text-primary mt-4">+50 ЛК</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">+50 ЛК</div>
               </CardHeader>
             </Card>
           </div>
 
-          <Card className="max-w-4xl mx-auto bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
-            <CardHeader>
+          <Card className="max-w-4xl mx-auto bg-gradient-to-br from-cyan-500 via-sky-500 to-indigo-600 text-white border-0 shadow-xl animate-gradient overflow-hidden relative">
+            <div className="absolute inset-0 shimmer pointer-events-none"></div>
+            <CardHeader className="relative z-10">
               <CardTitle className="text-3xl text-white flex items-center gap-2">
                 <span className="text-4xl">🚀</span>
                 Начни зарабатывать прямо сейчас
@@ -338,7 +350,7 @@ const Index = () => {
                 Создай аккаунт и получи 1000 ЛК в подарок 💙
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="relative z-10">
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-white/10 rounded-lg p-4">
                   <div className="text-yellow-300 font-bold text-lg mb-2">+1000 ЛК</div>
@@ -363,15 +375,16 @@ const Index = () => {
 
       {showAuthModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowAuthModal(false)}>
-          <Card className="max-w-md w-full border-blue-200 shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <CardHeader>
+          <Card className="max-w-md w-full border-blue-200 shadow-2xl overflow-hidden relative" onClick={(e) => e.stopPropagation()}>
+            <div className="absolute inset-0 shimmer pointer-events-none"></div>
+            <CardHeader className="relative z-10">
               <div className="text-center mb-4">
-                <div className="text-6xl mb-4">💙</div>
+                <div className="text-6xl mb-4 float">💙</div>
                 <CardTitle className="text-2xl">Создай аккаунт</CardTitle>
                 <CardDescription className="text-base">Получи 1000 ЛК в подарок</CardDescription>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="relative z-10">
               <form className="space-y-4" onSubmit={(e) => {
                 e.preventDefault();
                 setIsLoggedIn(true);
@@ -381,7 +394,7 @@ const Index = () => {
                 <Input placeholder="Твой никнейм 😎" className="h-12" />
                 <Input type="email" placeholder="Email" className="h-12" />
                 <Input type="password" placeholder="Пароль" className="h-12" />
-                <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 h-12 text-lg font-bold">
+                <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 h-12 text-lg font-bold animate-gradient">
                   <Icon name="Rocket" size={20} className="mr-2" />
                   Начать 🚀
                 </Button>
@@ -410,7 +423,7 @@ const Index = () => {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="text-3xl">💙</div>
-                <h3 className="font-bold text-xl bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+                <h3 className="font-bold text-xl bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
                   Лизунск
                 </h3>
               </div>
