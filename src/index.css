@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    --background: 45 100% 96%;
-    --foreground: 220 90% 20%;
+    --background: 240 10% 10%;
+    --foreground: 0 0% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 90% 20%;
+    --card: 240 8% 15%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 90% 20%;
+    --popover: 240 8% 15%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 210 100% 50%;
+    --primary: 0 80% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 100% 60%;
-    --secondary-foreground: 220 90% 20%;
+    --secondary: 240 5% 25%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 220 20% 50%;
+    --muted: 240 5% 20%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 45 100% 70%;
-    --accent-foreground: 220 90% 20%;
+    --accent: 0 80% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 210 40% 85%;
-    --input: 210 40% 90%;
-    --ring: 210 100% 50%;
+    --border: 240 5% 25%;
+    --input: 240 5% 20%;
+    --ring: 0 80% 60%;
 
     --radius: 0.5rem;
 
@@ -100,10 +100,11 @@
   }
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
 body {
   font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
 }
 
 h1,
@@ -112,7 +113,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
 }
 
 .hover-scale {
