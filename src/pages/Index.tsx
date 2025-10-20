@@ -271,7 +271,6 @@ const Index = () => {
             </CardContent>
           </Card>
         </div>
-        </div>
       </section>
 
       <section id="currency" className="py-16 px-4 md:px-8">
