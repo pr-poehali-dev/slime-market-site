@@ -8,135 +8,192 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('home');
-
-  const scrollToSection = (id: string) => {
-    setActiveSection(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [userBalance, setUserBalance] = useState(1250);
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-white to-blue-100">
+      <header className="sticky top-0 z-50 w-full border-b border-blue-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/80 shadow-sm">
         <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon name="Store" size={28} className="text-primary" />
-            <h1 className="text-2xl font-bold text-primary">Лизунск</h1>
+          <div className="flex items-center gap-3">
+            <div className="text-4xl">💙</div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              Лизунск
+            </h1>
           </div>
-          <nav className="hidden md:flex gap-6">
-            <Button variant="ghost" onClick={() => scrollToSection('home')}>Главная</Button>
-            <Button variant="ghost" onClick={() => scrollToSection('about')}>О рынке</Button>
-            <Button variant="ghost" onClick={() => scrollToSection('shops')}>Магазины</Button>
-            <Button variant="ghost" onClick={() => scrollToSection('services')}>Услуги</Button>
-            <Button variant="ghost" onClick={() => scrollToSection('currency')}>Валюты</Button>
-            <Button variant="ghost" onClick={() => scrollToSection('schedule')}>График</Button>
-            <Button variant="ghost" onClick={() => scrollToSection('contacts')}>Контакты</Button>
+          <nav className="hidden md:flex gap-4 items-center">
+            <a href="#home" className="hover:text-primary transition-colors font-medium">Главная</a>
+            <a href="#shops" className="hover:text-primary transition-colors font-medium">Магазины</a>
+            <a href="#crypto" className="hover:text-primary transition-colors font-medium">Крипта 💎</a>
+            <a href="#currency" className="hover:text-primary transition-colors font-medium">Лизкоины</a>
           </nav>
-          <Button onClick={() => scrollToSection('rent')}>Арендовать место</Button>
+          {isLoggedIn ? (
+            <div className="flex items-center gap-3">
+              <Badge className="text-lg px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600">
+                💰 {userBalance} ЛК
+              </Badge>
+              <Button size="sm" variant="outline">
+                <Icon name="User" size={18} className="mr-2" />
+                Профиль
+              </Button>
+            </div>
+          ) : (
+            <Button onClick={() => setShowAuthModal(true)} className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
+              <Icon name="LogIn" size={18} className="mr-2" />
+              Войти 💙
+            </Button>
+          )}
         </div>
       </header>
 
-      <section id="home" className="relative h-[600px] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(https://cdn.poehali.dev/projects/f2fbb998-deec-431a-9b43-1d5fd7e6814f/files/77ed14cc-9007-4180-845f-3e5e00111a4b.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/70" />
-        </div>
-        <div className="container relative z-10 text-center">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">Торговый рынок Лизунск</h2>
-          <p className="text-xl md:text-2xl mb-8 text-muted-foreground max-w-2xl mx-auto">
-            Современный торговый центр с удобной системой расчётов и широким выбором товаров
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button size="lg" onClick={() => scrollToSection('shops')}>
-              <Icon name="ShoppingBag" size={20} className="mr-2" />
-              Посмотреть магазины
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => scrollToSection('rent')}>
-              Арендовать место
-            </Button>
+      <section id="home" className="py-16">
+        <div className="container">
+          <div className="grid lg:grid-cols-5 gap-8">
+            <Card className="hover-scale lg:col-span-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
+              <CardHeader>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-4xl">🛒</span>
+                  <CardTitle className="text-3xl text-white">Торговый рынок будущего</CardTitle>
+                </div>
+                <CardDescription className="text-blue-50 text-lg">
+                  Виртуальная валюта, крипта и современный шопинг 💙
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 text-white">
+                    <Icon name="Zap" size={24} className="text-yellow-300" />
+                    <span className="font-medium">Быстрые криптоплатежи</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-white">
+                    <Icon name="TrendingUp" size={24} className="text-yellow-300" />
+                    <span className="font-medium">Зарабатывай лизкоины</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-white">
+                    <Icon name="Users" size={24} className="text-yellow-300" />
+                    <span className="font-medium">500+ магазинов</span>
+                  </div>
+                  <Button size="lg" className="w-full mt-4 bg-yellow-400 text-blue-900 hover:bg-yellow-500 font-bold">
+                    <Icon name="Rocket" size={20} className="mr-2" />
+                    Начать шопинг 🚀
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-scale lg:col-span-2 bg-gradient-to-br from-yellow-300 to-yellow-400 border-0 shadow-xl">
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl">💎</span>
+                  <CardTitle className="text-2xl text-blue-900">Крипто-баланс</CardTitle>
+                </div>
+                <CardDescription className="text-blue-800 font-medium">
+                  Твоя виртуальная валюта
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-5xl font-bold text-blue-900 mb-4">
+                  {isLoggedIn ? `${userBalance} ЛК` : '--- ЛК'}
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-blue-900">
+                    <span>Биткоин</span>
+                    <span className="font-bold">0.0024 BTC</span>
+                  </div>
+                  <div className="flex justify-between text-blue-900">
+                    <span>Эфириум</span>
+                    <span className="font-bold">0.15 ETH</span>
+                  </div>
+                </div>
+                {!isLoggedIn && (
+                  <Button 
+                    onClick={() => setShowAuthModal(true)} 
+                    className="w-full mt-4 bg-blue-600 hover:bg-blue-700"
+                  >
+                    Создать аккаунт 💙
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mt-8">
+            <Card className="hover-scale border-blue-200 shadow-lg">
+              <CardHeader>
+                <div className="text-4xl mb-2">⚡</div>
+                <CardTitle className="text-xl bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
+                  Мгновенные транзакции
+                </CardTitle>
+                <CardDescription>Оплата за секунды через блокчейн</CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="hover-scale border-blue-200 shadow-lg">
+              <CardHeader>
+                <div className="text-4xl mb-2">🎁</div>
+                <CardTitle className="text-xl bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+                  Кэшбэк 10%
+                </CardTitle>
+                <CardDescription>Возврат лизкоинами на все покупки</CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="hover-scale border-blue-200 shadow-lg">
+              <CardHeader>
+                <div className="text-4xl mb-2">🔒</div>
+                <CardTitle className="text-xl bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">
+                  Безопасность
+                </CardTitle>
+                <CardDescription>Твои активы под защитой 💙</CardDescription>
+              </CardHeader>
+            </Card>
           </div>
         </div>
       </section>
 
-      <section id="about" className="py-20 bg-muted/30">
+      <section id="shops" className="py-16 bg-white/60">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-12">О торговом рынке</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="hover-scale">
-              <CardHeader>
-                <Icon name="Users" size={40} className="text-primary mb-4" />
-                <CardTitle>500+ продавцов</CardTitle>
-                <CardDescription>Проверенные предприниматели и магазины</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="hover-scale">
-              <CardHeader>
-                <Icon name="MapPin" size={40} className="text-primary mb-4" />
-                <CardTitle>Удобное расположение</CardTitle>
-                <CardDescription>В центре города с хорошей транспортной доступностью</CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="hover-scale">
-              <CardHeader>
-                <Icon name="Coins" size={40} className="text-primary mb-4" />
-                <CardTitle>Система валют</CardTitle>
-                <CardDescription>Уникальная программа лояльности с внутренней валютой</CardDescription>
-              </CardHeader>
-            </Card>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              Магазины 🛍️
+            </h2>
+            <p className="text-muted-foreground text-lg">500+ крутых мест для шопинга</p>
           </div>
-          <div className="mt-12 flex justify-center">
-            <img 
-              src="https://cdn.poehali.dev/projects/f2fbb998-deec-431a-9b43-1d5fd7e6814f/files/eb1635e8-f0cb-4175-b7c0-2b3148c760b3.jpg"
-              alt="Интерьер рынка"
-              className="rounded-lg shadow-lg max-w-3xl w-full"
-            />
-          </div>
-        </div>
-      </section>
 
-      <section id="shops" className="py-20">
-        <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-12">Наши магазины</h2>
           <Tabs defaultValue="all" className="w-full">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-4 mb-8">
-              <TabsTrigger value="all">Все</TabsTrigger>
-              <TabsTrigger value="food">Еда</TabsTrigger>
-              <TabsTrigger value="clothes">Одежда</TabsTrigger>
-              <TabsTrigger value="tech">Техника</TabsTrigger>
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-8 h-12 bg-blue-100">
+              <TabsTrigger value="all" className="font-bold">Все 🔥</TabsTrigger>
+              <TabsTrigger value="food" className="font-bold">Еда 🍕</TabsTrigger>
+              <TabsTrigger value="clothes" className="font-bold">Одежда 👕</TabsTrigger>
+              <TabsTrigger value="tech" className="font-bold">Техника 📱</TabsTrigger>
             </TabsList>
-            <TabsContent value="all" className="space-y-4">
+            
+            <TabsContent value="all">
               <div className="grid md:grid-cols-3 gap-6">
                 {[
-                  { name: 'Продукты "Свежесть"', category: 'Продукты', rating: 4.8, icon: 'Apple' },
-                  { name: 'Одежда "Стиль"', category: 'Одежда', rating: 4.6, icon: 'Shirt' },
-                  { name: 'Техномир', category: 'Электроника', rating: 4.9, icon: 'Laptop' },
-                  { name: 'Обувной двор', category: 'Обувь', rating: 4.7, icon: 'Footprints' },
-                  { name: 'Хозтовары', category: 'Дом', rating: 4.5, icon: 'Home' },
-                  { name: 'Книжная лавка', category: 'Книги', rating: 4.8, icon: 'Book' },
+                  { name: 'Техномаркет', category: 'Электроника', cashback: '15%', icon: '📱', color: 'from-blue-500 to-blue-600' },
+                  { name: 'Стритвир', category: 'Одежда', cashback: '10%', icon: '👕', color: 'from-yellow-400 to-yellow-500' },
+                  { name: 'Фудкорт', category: 'Еда', cashback: '8%', icon: '🍕', color: 'from-blue-400 to-blue-500' },
+                  { name: 'Гейм Зона', category: 'Игры', cashback: '12%', icon: '🎮', color: 'from-yellow-500 to-yellow-600' },
+                  { name: 'Книжный', category: 'Книги', cashback: '5%', icon: '📚', color: 'from-blue-500 to-blue-600' },
+                  { name: 'Спорт Хаб', category: 'Спорт', cashback: '10%', icon: '⚽', color: 'from-yellow-400 to-yellow-500' },
                 ].map((shop, idx) => (
-                  <Card key={idx} className="hover-scale">
+                  <Card key={idx} className="hover-scale border-blue-200 shadow-lg overflow-hidden">
+                    <div className={`h-2 bg-gradient-to-r ${shop.color}`} />
                     <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <Icon name={shop.icon as any} size={24} className="text-primary" />
-                          </div>
-                          <div>
-                            <CardTitle className="text-lg">{shop.name}</CardTitle>
-                            <CardDescription>{shop.category}</CardDescription>
-                          </div>
-                        </div>
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="text-5xl">{shop.icon}</div>
+                        <Badge className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-blue-900 font-bold">
+                          {shop.cashback} кэшбэк 💰
+                        </Badge>
                       </div>
-                      <div className="flex items-center gap-1 mt-2">
-                        <Icon name="Star" size={16} className="text-yellow-500 fill-yellow-500" />
-                        <span className="font-semibold">{shop.rating}</span>
-                      </div>
+                      <CardTitle className="text-xl">{shop.name}</CardTitle>
+                      <CardDescription className="text-base">{shop.category}</CardDescription>
+                      <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
+                        <Icon name="ShoppingCart" size={18} className="mr-2" />
+                        Открыть магазин
+                      </Button>
                     </CardHeader>
                   </Card>
                 ))}
@@ -146,287 +203,254 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="services" className="py-20 bg-muted/30">
+      <section id="crypto" className="py-16">
         <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-12">Услуги и возможности</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              Криптовалюты 💎
+            </h2>
+            <p className="text-muted-foreground text-lg">Покупай, продавай и обменивай крипту</p>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: 'Parking', title: 'Парковка', desc: 'Бесплатная парковка для покупателей' },
-              { icon: 'Wifi', title: 'Wi-Fi', desc: 'Бесплатный интернет во всём здании' },
-              { icon: 'CreditCard', title: 'Оплата картой', desc: 'Принимаем все виды карт' },
-              { icon: 'Package', title: 'Доставка', desc: 'Доставка товаров по городу' },
-            ].map((service, idx) => (
-              <Card key={idx} className="text-center hover-scale">
+              { name: 'Bitcoin', symbol: 'BTC', icon: '₿', price: '45,230', change: '+5.2%', color: 'from-orange-400 to-orange-500' },
+              { name: 'Ethereum', symbol: 'ETH', icon: 'Ξ', price: '3,120', change: '+3.8%', color: 'from-blue-500 to-blue-600' },
+              { name: 'Лизкоин', symbol: 'LZK', icon: '💙', price: '0.10', change: '+12.5%', color: 'from-yellow-400 to-yellow-500' },
+              { name: 'Solana', symbol: 'SOL', icon: '◎', price: '98.5', change: '+7.1%', color: 'from-purple-500 to-purple-600' },
+            ].map((crypto, idx) => (
+              <Card key={idx} className={`hover-scale bg-gradient-to-br ${crypto.color} text-white border-0 shadow-xl`}>
                 <CardHeader>
-                  <Icon name={service.icon as any} size={40} className="text-primary mx-auto mb-4" />
-                  <CardTitle className="text-lg">{service.title}</CardTitle>
-                  <CardDescription>{service.desc}</CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="currency" className="py-20">
-        <div className="container">
-          <h2 className="text-4xl font-bold text-center mb-4">Система валют</h2>
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Зарабатывайте внутреннюю валюту за покупки и получайте дополнительные бонусы
-          </p>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon name="Coins" className="text-primary" />
-                  Лизкоины
-                </CardTitle>
-                <CardDescription>Основная внутренняя валюта</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Курс обмена</span>
-                    <span className="font-bold">1₽ = 10 ЛК</span>
+                  <div className="flex justify-between items-start mb-4">
+                    <div className="text-5xl">{crypto.icon}</div>
+                    <Badge className="bg-green-500 text-white border-0 font-bold">
+                      {crypto.change}
+                    </Badge>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Кэшбэк</span>
-                    <Badge>5%</Badge>
+                  <CardTitle className="text-2xl text-white">{crypto.name}</CardTitle>
+                  <CardDescription className="text-white/80 font-medium text-base">
+                    {crypto.symbol}
+                  </CardDescription>
+                  <div className="text-3xl font-bold text-white mt-3">
+                    ${crypto.price}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon name="Award" className="text-primary" />
-                  Бонусы
-                </CardTitle>
-                <CardDescription>Дополнительные награды</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">За покупку</span>
-                    <span className="font-bold">+10 ЛК</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">День рождения</span>
-                    <Badge>+500 ЛК</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <Card className="max-w-4xl mx-auto">
-            <CardHeader>
-              <CardTitle>Как зарабатывать лизкоины?</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <Icon name="ShoppingCart" size={28} className="text-primary" />
-                  </div>
-                  <h4 className="font-semibold mb-2">Покупайте</h4>
-                  <p className="text-sm text-muted-foreground">5% от суммы покупки возвращается лизкоинами</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <Icon name="UserPlus" size={28} className="text-primary" />
-                  </div>
-                  <h4 className="font-semibold mb-2">Приглашайте</h4>
-                  <p className="text-sm text-muted-foreground">200 ЛК за каждого приглашённого друга</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-                    <Icon name="Star" size={28} className="text-primary" />
-                  </div>
-                  <h4 className="font-semibold mb-2">Оценивайте</h4>
-                  <p className="text-sm text-muted-foreground">10 ЛК за каждый отзыв о магазине</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section id="schedule" className="py-20 bg-muted/30">
-        <div className="container max-w-3xl">
-          <h2 className="text-4xl font-bold text-center mb-12">График работы</h2>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="space-y-4">
-                {[
-                  { day: 'Понедельник - Пятница', time: '08:00 - 20:00', isToday: true },
-                  { day: 'Суббота', time: '09:00 - 21:00', isToday: false },
-                  { day: 'Воскресенье', time: '10:00 - 19:00', isToday: false },
-                ].map((schedule, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`flex justify-between items-center p-4 rounded-lg ${
-                      schedule.isToday ? 'bg-primary/10 border-2 border-primary' : 'bg-muted/50'
-                    }`}
+                  <Button 
+                    className="w-full mt-4 bg-white/20 hover:bg-white/30 text-white border-white/40"
+                    variant="outline"
                   >
-                    <div className="flex items-center gap-3">
-                      <Icon name="Clock" size={20} className="text-primary" />
-                      <span className="font-semibold">{schedule.day}</span>
-                    </div>
-                    <span className="font-mono font-bold">{schedule.time}</span>
+                    <Icon name="ArrowRightLeft" size={18} className="mr-2" />
+                    Обменять
+                  </Button>
+                </CardHeader>
+              </Card>
+            ))}
+          </div>
+
+          <Card className="mt-8 max-w-4xl mx-auto border-blue-200 shadow-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl flex items-center gap-2">
+                <span className="text-3xl">⚡</span>
+                Быстрый обмен криптовалют
+              </CardTitle>
+              <CardDescription className="text-base">Конвертируй крипту в лизкоины за секунды</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="font-medium mb-2 block">Отдаешь</label>
+                  <div className="flex gap-2">
+                    <Input placeholder="0.00" className="text-xl font-bold" />
+                    <Button variant="outline" className="min-w-[120px]">
+                      BTC ₿
+                    </Button>
                   </div>
-                ))}
+                </div>
+                <div>
+                  <label className="font-medium mb-2 block">Получаешь</label>
+                  <div className="flex gap-2">
+                    <Input placeholder="0.00" className="text-xl font-bold" />
+                    <Button variant="outline" className="min-w-[120px]">
+                      ЛК 💙
+                    </Button>
+                  </div>
+                </div>
               </div>
-              <div className="mt-6 p-4 bg-accent/20 rounded-lg flex items-start gap-3">
-                <Icon name="Info" size={20} className="text-primary mt-1" />
-                <p className="text-sm">
-                  В праздничные дни график работы может меняться. Следите за объявлениями в новостях.
-                </p>
-              </div>
+              <Button className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 h-12 text-lg font-bold">
+                <Icon name="Zap" size={20} className="mr-2" />
+                Обменять сейчас 🚀
+              </Button>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      <section id="rent" className="py-20">
-        <div className="container max-w-4xl">
-          <h2 className="text-4xl font-bold text-center mb-4">Аренда торгового места</h2>
-          <p className="text-center text-muted-foreground mb-12">
-            Станьте частью нашего торгового сообщества
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {[
-              { title: 'Малое место', price: '15 000₽', area: 'до 10 м²' },
-              { title: 'Среднее место', price: '30 000₽', area: '10-25 м²' },
-              { title: 'Большое место', price: '50 000₽', area: '25+ м²' },
-            ].map((plan, idx) => (
-              <Card key={idx} className="text-center hover-scale">
-                <CardHeader>
-                  <CardTitle>{plan.title}</CardTitle>
-                  <div className="text-3xl font-bold text-primary my-4">{plan.price}</div>
-                  <CardDescription>в месяц</CardDescription>
-                  <p className="text-sm text-muted-foreground mt-2">{plan.area}</p>
-                </CardHeader>
-              </Card>
-            ))}
+      <section id="currency" className="py-16 bg-white/60">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+              Лизкоины 💰
+            </h2>
+            <p className="text-muted-foreground text-lg">Внутренняя валюта рынка с крутыми бонусами</p>
           </div>
-          <Card>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <Card className="hover-scale border-blue-200 shadow-lg text-center">
+              <CardHeader>
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-4xl">
+                  🛒
+                </div>
+                <CardTitle className="text-xl">Покупай</CardTitle>
+                <CardDescription className="text-base">10% кэшбэк лизкоинами на каждую покупку</CardDescription>
+                <div className="text-3xl font-bold text-primary mt-4">+100 ЛК</div>
+              </CardHeader>
+            </Card>
+
+            <Card className="hover-scale border-blue-200 shadow-lg text-center">
+              <CardHeader>
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center text-4xl">
+                  💎
+                </div>
+                <CardTitle className="text-xl">Майни крипту</CardTitle>
+                <CardDescription className="text-base">Конвертируй криптовалюту в лизкоины</CardDescription>
+                <div className="text-3xl font-bold text-secondary mt-4">+500 ЛК</div>
+              </CardHeader>
+            </Card>
+
+            <Card className="hover-scale border-blue-200 shadow-lg text-center">
+              <CardHeader>
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-4xl">
+                  🎁
+                </div>
+                <CardTitle className="text-xl">Получай бонусы</CardTitle>
+                <CardDescription className="text-base">Ежедневные задания и награды</CardDescription>
+                <div className="text-3xl font-bold text-primary mt-4">+50 ЛК</div>
+              </CardHeader>
+            </Card>
+          </div>
+
+          <Card className="max-w-4xl mx-auto bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
             <CardHeader>
-              <CardTitle>Оставьте заявку</CardTitle>
-              <CardDescription>Мы свяжемся с вами в ближайшее время</CardDescription>
+              <CardTitle className="text-3xl text-white flex items-center gap-2">
+                <span className="text-4xl">🚀</span>
+                Начни зарабатывать прямо сейчас
+              </CardTitle>
+              <CardDescription className="text-blue-50 text-lg">
+                Создай аккаунт и получи 1000 ЛК в подарок 💙
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Input placeholder="Ваше имя" />
-                  <Input type="tel" placeholder="Телефон" />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-white/10 rounded-lg p-4">
+                  <div className="text-yellow-300 font-bold text-lg mb-2">+1000 ЛК</div>
+                  <p className="text-blue-50">За регистрацию</p>
                 </div>
-                <Input type="email" placeholder="Email" />
-                <Textarea placeholder="Расскажите о вашем бизнесе" rows={4} />
-                <Button className="w-full">
-                  <Icon name="Send" size={18} className="mr-2" />
-                  Отправить заявку
+                <div className="bg-white/10 rounded-lg p-4">
+                  <div className="text-yellow-300 font-bold text-lg mb-2">+200 ЛК</div>
+                  <p className="text-blue-50">За каждого друга</p>
+                </div>
+              </div>
+              <Button 
+                onClick={() => setShowAuthModal(true)}
+                className="w-full mt-6 bg-yellow-400 text-blue-900 hover:bg-yellow-500 h-12 text-lg font-bold"
+              >
+                <Icon name="Sparkles" size={20} className="mr-2" />
+                Забрать 1000 ЛК 🎁
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {showAuthModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowAuthModal(false)}>
+          <Card className="max-w-md w-full border-blue-200 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <CardHeader>
+              <div className="text-center mb-4">
+                <div className="text-6xl mb-4">💙</div>
+                <CardTitle className="text-2xl">Создай аккаунт</CardTitle>
+                <CardDescription className="text-base">Получи 1000 ЛК в подарок</CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <form className="space-y-4" onSubmit={(e) => {
+                e.preventDefault();
+                setIsLoggedIn(true);
+                setUserBalance(1000);
+                setShowAuthModal(false);
+              }}>
+                <Input placeholder="Твой никнейм 😎" className="h-12" />
+                <Input type="email" placeholder="Email" className="h-12" />
+                <Input type="password" placeholder="Пароль" className="h-12" />
+                <Button type="submit" className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 h-12 text-lg font-bold">
+                  <Icon name="Rocket" size={20} className="mr-2" />
+                  Начать 🚀
                 </Button>
+                <div className="text-center">
+                  <button 
+                    type="button"
+                    className="text-sm text-muted-foreground hover:text-primary"
+                    onClick={() => {
+                      setIsLoggedIn(true);
+                      setUserBalance(1250);
+                      setShowAuthModal(false);
+                    }}
+                  >
+                    Уже есть аккаунт? Войти
+                  </button>
+                </div>
               </form>
             </CardContent>
           </Card>
         </div>
-      </section>
+      )}
 
-      <section id="contacts" className="py-20 bg-muted/30">
-        <div className="container max-w-4xl">
-          <h2 className="text-4xl font-bold text-center mb-12">Контакты</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card>
-              <CardHeader>
-                <CardTitle>Свяжитесь с нами</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Icon name="MapPin" size={20} className="text-primary" />
-                  <div>
-                    <p className="font-semibold">Адрес</p>
-                    <p className="text-sm text-muted-foreground">г. Лизунск, ул. Торговая, 15</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Icon name="Phone" size={20} className="text-primary" />
-                  <div>
-                    <p className="font-semibold">Телефон</p>
-                    <p className="text-sm text-muted-foreground">+7 (800) 123-45-67</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Icon name="Mail" size={20} className="text-primary" />
-                  <div>
-                    <p className="font-semibold">Email</p>
-                    <p className="text-sm text-muted-foreground">info@lizunsk-market.ru</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Напишите нам</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-4">
-                  <Input placeholder="Ваше имя" />
-                  <Input type="email" placeholder="Email" />
-                  <Textarea placeholder="Сообщение" rows={3} />
-                  <Button className="w-full">Отправить</Button>
-                </form>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t py-12 bg-background">
+      <footer className="border-t border-blue-200 py-12 bg-white">
         <div className="container">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Icon name="Store" size={24} className="text-primary" />
-                <h3 className="font-bold text-lg">Лизунск</h3>
+                <div className="text-3xl">💙</div>
+                <h3 className="font-bold text-xl bg-gradient-to-r from-blue-600 to-yellow-500 bg-clip-text text-transparent">
+                  Лизунск
+                </h3>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Современный торговый центр с удобной системой расчётов
+              <p className="text-muted-foreground">
+                Торговый рынок будущего с крипто-валютой
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Навигация</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><button onClick={() => scrollToSection('about')} className="hover:text-primary">О рынке</button></li>
-                <li><button onClick={() => scrollToSection('shops')} className="hover:text-primary">Магазины</button></li>
-                <li><button onClick={() => scrollToSection('services')} className="hover:text-primary">Услуги</button></li>
+              <h4 className="font-bold mb-4">Разделы</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><a href="#home" className="hover:text-primary">Главная 🏠</a></li>
+                <li><a href="#shops" className="hover:text-primary">Магазины 🛍️</a></li>
+                <li><a href="#crypto" className="hover:text-primary">Крипта 💎</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Информация</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><button onClick={() => scrollToSection('currency')} className="hover:text-primary">Валюты</button></li>
-                <li><button onClick={() => scrollToSection('schedule')} className="hover:text-primary">График</button></li>
-                <li><button onClick={() => scrollToSection('rent')} className="hover:text-primary">Аренда</button></li>
+              <h4 className="font-bold mb-4">Валюты</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><a href="#currency" className="hover:text-primary">Лизкоины 💰</a></li>
+                <li><a href="#crypto" className="hover:text-primary">Bitcoin ₿</a></li>
+                <li><a href="#crypto" className="hover:text-primary">Ethereum Ξ</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Социальные сети</h4>
+              <h4 className="font-bold mb-4">Соцсети</h4>
               <div className="flex gap-3">
-                <Button size="icon" variant="outline">
-                  <Icon name="Facebook" size={18} />
+                <Button size="icon" variant="outline" className="hover:bg-blue-100">
+                  <Icon name="MessageCircle" size={18} />
                 </Button>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" className="hover:bg-blue-100">
                   <Icon name="Instagram" size={18} />
                 </Button>
-                <Button size="icon" variant="outline">
+                <Button size="icon" variant="outline" className="hover:bg-blue-100">
                   <Icon name="Twitter" size={18} />
                 </Button>
               </div>
             </div>
           </div>
-          <div className="border-t pt-8 text-center text-sm text-muted-foreground">
-            <p>© 2024 Торговый рынок Лизунск. Все права защищены.</p>
+          <div className="border-t border-blue-200 pt-8 text-center text-muted-foreground">
+            <p>© 2024 Лизунск 💙 Все права защищены</p>
           </div>
         </div>
       </footer>
