@@ -13,8 +13,8 @@ const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(1);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f0f23]">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0f0f23]/80 backdrop-blur-md border-b border-white/5">
+    <div className="min-h-screen bg-gradient-to-br from-[#1e1e2e] via-[#27293d] to-[#1a1d2e]">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a1d2e]/80 backdrop-blur-md border-b border-white/5">
         <div className="container flex h-16 items-center justify-between">
           <button className="p-2 hover:bg-white/5 rounded-lg transition-colors">
             <Icon name="Menu" size={24} className="text-white" />
@@ -28,7 +28,7 @@ const Index = () => {
 
           {isLoggedIn ? (
             <div className="flex items-center gap-3">
-              <Badge className="text-sm px-3 py-1.5 bg-red-600/20 text-red-400 border border-red-600/30">
+              <Badge className="text-sm px-3 py-1.5 bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-400 border border-orange-500/30">
                 💰 {userBalance} ЛК
               </Badge>
               <Button size="sm" variant="ghost" className="text-white hover:bg-white/10">
@@ -48,8 +48,10 @@ const Index = () => {
         </div>
       </header>
 
-      <section id="collection" className="pt-24 pb-16 px-4 md:px-8 min-h-screen flex items-center">
-        <div className="container mx-auto">
+      <section id="collection" className="pt-24 pb-16 px-4 md:px-8 min-h-screen flex items-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-600/10 via-transparent to-red-600/10 pointer-events-none"></div>
+        
+        <div className="container mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div>
@@ -82,6 +84,7 @@ const Index = () => {
               </div>
 
               <div className="relative overflow-hidden rounded-2xl group">
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-red-600/20 to-transparent mix-blend-overlay z-10 pointer-events-none"></div>
                 <img 
                   src="https://cdn.poehali.dev/files/a8b706a6-bea0-43c9-a8f9-ff4e62aca159.png"
                   alt="SpaceAge Collection"
@@ -94,14 +97,16 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-12 px-4 md:px-8 bg-gradient-to-b from-transparent via-red-950/10 to-transparent">
-        <div className="container mx-auto">
+      <section className="py-12 px-4 md:px-8 bg-gradient-to-b from-transparent via-orange-950/5 to-transparent relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-600/5 via-transparent to-red-600/5 pointer-events-none"></div>
+        
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-8">
             <span className="text-gray-500 uppercase tracking-widest text-xs font-medium">NEWS</span>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all hover-scale overflow-hidden group">
+            <Card className="bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/20 transition-all hover-scale overflow-hidden group backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white text-2xl mb-2">Lionshead Studios redesign</CardTitle>
                 <CardDescription className="text-gray-400 text-base">
@@ -110,7 +115,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all hover-scale overflow-hidden group">
+            <Card className="bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/20 transition-all hover-scale overflow-hidden group backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white text-2xl mb-2">Ceneviva shows his amazing work</CardTitle>
                 <CardDescription className="text-gray-400 text-base">
@@ -144,11 +149,11 @@ const Index = () => {
           </div>
 
           <Tabs defaultValue="all" className="w-full">
-            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-8 h-12 bg-white/5 border border-white/10">
-              <TabsTrigger value="all" className="font-bold text-white data-[state=active]:bg-red-600">Все 🔥</TabsTrigger>
-              <TabsTrigger value="food" className="font-bold text-white data-[state=active]:bg-red-600">Еда 🍕</TabsTrigger>
-              <TabsTrigger value="clothes" className="font-bold text-white data-[state=active]:bg-red-600">Одежда 👕</TabsTrigger>
-              <TabsTrigger value="tech" className="font-bold text-white data-[state=active]:bg-red-600">Техника 📱</TabsTrigger>
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-8 h-12 bg-gradient-to-r from-[#2a2d3e] to-[#1e2130] border border-white/10">
+              <TabsTrigger value="all" className="font-bold text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-600 data-[state=active]:to-red-600">Все 🔥</TabsTrigger>
+              <TabsTrigger value="food" className="font-bold text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-600 data-[state=active]:to-red-600">Еда 🍕</TabsTrigger>
+              <TabsTrigger value="clothes" className="font-bold text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-600 data-[state=active]:to-red-600">Одежда 👕</TabsTrigger>
+              <TabsTrigger value="tech" className="font-bold text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-600 data-[state=active]:to-red-600">Техника 📱</TabsTrigger>
             </TabsList>
             
             <TabsContent value="all">
@@ -161,18 +166,18 @@ const Index = () => {
                   { name: 'Книжный', category: 'Книги', cashback: '5%', icon: '📚' },
                   { name: 'Спорт Хаб', category: 'Спорт', cashback: '10%', icon: '⚽' },
                 ].map((shop, idx) => (
-                  <Card key={idx} className="hover-scale bg-white/5 border-white/10 hover:border-red-500/30 transition-all overflow-hidden group">
-                    <div className="h-1 bg-gradient-to-r from-red-600 to-red-800"></div>
+                  <Card key={idx} className="hover-scale bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/30 transition-all overflow-hidden group backdrop-blur-sm">
+                    <div className="h-1 bg-gradient-to-r from-orange-600 to-red-600"></div>
                     <CardHeader>
                       <div className="flex items-start justify-between mb-3">
                         <div className="text-5xl">{shop.icon}</div>
-                        <Badge className="bg-red-600/20 text-red-400 border border-red-600/30 font-bold">
+                        <Badge className="bg-gradient-to-r from-orange-600/20 to-red-600/20 text-orange-400 border border-orange-500/30 font-bold">
                           {shop.cashback} кэшбэк
                         </Badge>
                       </div>
                       <CardTitle className="text-xl text-white">{shop.name}</CardTitle>
                       <CardDescription className="text-gray-400 text-base">{shop.category}</CardDescription>
-                      <Button className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white border-0">
+                      <Button className="w-full mt-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white border-0">
                         <Icon name="ShoppingCart" size={18} className="mr-2" />
                         Открыть магазин
                       </Button>
@@ -185,8 +190,10 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="crypto" className="py-16 px-4 md:px-8 bg-gradient-to-b from-transparent via-red-950/5 to-transparent">
-        <div className="container mx-auto">
+      <section id="crypto" className="py-16 px-4 md:px-8 bg-gradient-to-b from-transparent via-orange-950/5 to-transparent relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-600/5 via-transparent to-red-600/5 pointer-events-none"></div>
+        
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-12">
             <h2 className="text-5xl font-bold text-white mb-4">
               Криптовалюты 💎
@@ -201,7 +208,7 @@ const Index = () => {
               { name: 'Лизкоин', symbol: 'LZK', icon: '💙', price: '0.10', change: '+12.5%' },
               { name: 'Solana', symbol: 'SOL', icon: '◎', price: '98.5', change: '+7.1%' },
             ].map((crypto, idx) => (
-              <Card key={idx} className="hover-scale bg-gradient-to-br from-red-950/20 to-red-900/10 border-red-500/20 hover:border-red-500/40 transition-all">
+              <Card key={idx} className="hover-scale bg-gradient-to-br from-orange-950/20 to-red-950/20 border-orange-500/20 hover:border-orange-500/40 transition-all backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex justify-between items-start mb-4">
                     <div className="text-5xl">{crypto.icon}</div>
@@ -217,7 +224,7 @@ const Index = () => {
                     ${crypto.price}
                   </div>
                   <Button 
-                    className="w-full mt-4 bg-white/5 hover:bg-white/10 text-white border border-white/10"
+                    className="w-full mt-4 bg-gradient-to-r from-orange-600/20 to-red-600/20 hover:from-orange-600/30 hover:to-red-600/30 text-white border border-orange-500/30"
                     variant="outline"
                   >
                     <Icon name="ArrowRightLeft" size={18} className="mr-2" />
@@ -228,7 +235,7 @@ const Index = () => {
             ))}
           </div>
 
-          <Card className="mt-8 max-w-4xl mx-auto bg-white/5 border-white/10 backdrop-blur-sm">
+          <Card className="mt-8 max-w-4xl mx-auto bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-2xl flex items-center gap-2 text-white">
                 <span className="text-3xl">⚡</span>
@@ -257,12 +264,13 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <Button className="w-full mt-6 bg-red-600 hover:bg-red-700 text-white h-12 text-lg font-bold border-0">
+              <Button className="w-full mt-6 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white h-12 text-lg font-bold border-0">
                 <Icon name="Zap" size={20} className="mr-2" />
                 Обменять сейчас 🚀
               </Button>
             </CardContent>
           </Card>
+        </div>
         </div>
       </section>
 
@@ -276,41 +284,41 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <Card className="hover-scale bg-white/5 border-white/10 hover:border-red-500/30 transition-all text-center">
+            <Card className="hover-scale bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/30 transition-all text-center backdrop-blur-sm">
               <CardHeader>
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-4xl">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center text-4xl">
                   🛒
                 </div>
                 <CardTitle className="text-xl text-white">Покупай</CardTitle>
                 <CardDescription className="text-gray-400 text-base">10% кэшбэк лизкоинами на каждую покупку</CardDescription>
-                <div className="text-3xl font-bold text-red-400 mt-4">+100 ЛК</div>
+                <div className="text-3xl font-bold text-orange-400 mt-4">+100 ЛК</div>
               </CardHeader>
             </Card>
 
-            <Card className="hover-scale bg-white/5 border-white/10 hover:border-red-500/30 transition-all text-center">
+            <Card className="hover-scale bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/30 transition-all text-center backdrop-blur-sm">
               <CardHeader>
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-4xl">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center text-4xl">
                   💎
                 </div>
                 <CardTitle className="text-xl text-white">Майни крипту</CardTitle>
                 <CardDescription className="text-gray-400 text-base">Конвертируй криптовалюту в лизкоины</CardDescription>
-                <div className="text-3xl font-bold text-red-400 mt-4">+500 ЛК</div>
+                <div className="text-3xl font-bold text-orange-400 mt-4">+500 ЛК</div>
               </CardHeader>
             </Card>
 
-            <Card className="hover-scale bg-white/5 border-white/10 hover:border-red-500/30 transition-all text-center">
+            <Card className="hover-scale bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/30 transition-all text-center backdrop-blur-sm">
               <CardHeader>
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-4xl">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center text-4xl">
                   🎁
                 </div>
                 <CardTitle className="text-xl text-white">Получай бонусы</CardTitle>
                 <CardDescription className="text-gray-400 text-base">Ежедневные задания и награды</CardDescription>
-                <div className="text-3xl font-bold text-red-400 mt-4">+50 ЛК</div>
+                <div className="text-3xl font-bold text-orange-400 mt-4">+50 ЛК</div>
               </CardHeader>
             </Card>
           </div>
 
-          <Card className="max-w-4xl mx-auto bg-gradient-to-br from-red-950/30 to-red-900/20 border-red-500/30 backdrop-blur-sm">
+          <Card className="max-w-4xl mx-auto bg-gradient-to-br from-orange-950/30 to-red-950/30 border-orange-500/30 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="text-3xl text-white flex items-center gap-2">
                 <span className="text-4xl">🚀</span>
@@ -323,17 +331,17 @@ const Index = () => {
             <CardContent>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                  <div className="text-red-400 font-bold text-lg mb-2">+1000 ЛК</div>
+                  <div className="text-orange-400 font-bold text-lg mb-2">+1000 ЛК</div>
                   <p className="text-gray-400">За регистрацию</p>
                 </div>
                 <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                  <div className="text-red-400 font-bold text-lg mb-2">+200 ЛК</div>
+                  <div className="text-orange-400 font-bold text-lg mb-2">+200 ЛК</div>
                   <p className="text-gray-400">За каждого друга</p>
                 </div>
               </div>
               <Button 
                 onClick={() => setShowAuthModal(true)}
-                className="w-full mt-6 bg-red-600 hover:bg-red-700 text-white h-12 text-lg font-bold border-0"
+                className="w-full mt-6 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white h-12 text-lg font-bold border-0"
               >
                 <Icon name="Sparkles" size={20} className="mr-2" />
                 Забрать 1000 ЛК 🎁
@@ -363,7 +371,7 @@ const Index = () => {
                 <Input placeholder="Твой никнейм 😎" className="h-12 bg-white/5 border-white/10 text-white" />
                 <Input type="email" placeholder="Email" className="h-12 bg-white/5 border-white/10 text-white" />
                 <Input type="password" placeholder="Пароль" className="h-12 bg-white/5 border-white/10 text-white" />
-                <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white h-12 text-lg font-bold border-0">
+                <Button type="submit" className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white h-12 text-lg font-bold border-0">
                   <Icon name="Rocket" size={20} className="mr-2" />
                   Начать 🚀
                 </Button>
@@ -386,7 +394,7 @@ const Index = () => {
         </div>
       )}
 
-      <footer className="border-t border-white/10 py-12 px-4 md:px-8 bg-[#0f0f23]">
+      <footer className="border-t border-white/10 py-12 px-4 md:px-8 bg-[#1a1d2e]">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
