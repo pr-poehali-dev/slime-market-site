@@ -6,31 +6,91 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
 
+const AUTH_API = 'https://functions.poehali.dev/dc17df15-258e-467e-84e5-2123c7521e48';
+
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [userBalance, setUserBalance] = useState(1250);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [userBalance, setUserBalance] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(1);
 
-  // Авто-логин для незарегистрированных пользователей
+  // Проверка авторизации при загрузке
   useEffect(() => {
-    const hasAccount = localStorage.getItem('userAccount');
-    if (!hasAccount) {
-      // Создаём гостевой аккаунт
-      const guestId = 'guest_' + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem('userAccount', guestId);
-      localStorage.setItem('userBalance', '1000');
-      setUserBalance(1000);
-      setIsLoggedIn(true);
-    } else {
-      // Загружаем данные существующего пользователя
-      const savedBalance = localStorage.getItem('userBalance');
-      if (savedBalance) {
-        setUserBalance(parseInt(savedBalance));
-      }
-      setIsLoggedIn(true);
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      checkAuth(token);
     }
   }, []);
+
+  const checkAuth = async (token: string) => {
+    try {
+      const response = await fetch(AUTH_API, {
+        method: 'GET',
+        headers: {
+          'X-Auth-Token': token,
+        },
+      });
+
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setIsLoggedIn(true);
+        setUsername(data.user.username);
+        setUserBalance(data.user.balance);
+      } else {
+        localStorage.removeItem('authToken');
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      localStorage.removeItem('authToken');
+      setIsLoggedIn(false);
+    }
+  };
+
+  const handleAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+
+    const body = authMode === 'register' 
+      ? { action: 'register', username, email, password }
+      : { action: 'login', username, password };
+
+    try {
+      const response = await fetch(AUTH_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        localStorage.setItem('authToken', data.token);
+        setIsLoggedIn(true);
+        setUsername(data.user.username);
+        setUserBalance(data.user.balance);
+        setShowAuthModal(false);
+        setPassword('');
+        setEmail('');
+      } else {
+        setAuthError(data.error || 'Ошибка авторизации');
+      }
+    } catch (error) {
+      setAuthError('Ошибка соединения с сервером');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    setIsLoggedIn(false);
+    setUsername('');
+    setUserBalance(0);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1e1e2e] via-[#27293d] to-[#1a1d2e]">
@@ -53,16 +113,19 @@ const Index = () => {
               </Badge>
               <Button size="sm" variant="ghost" className="text-white hover:bg-white/10">
                 <Icon name="User" size={18} className="mr-2" />
-                Профиль
+                {username}
+              </Button>
+              <Button size="sm" variant="ghost" onClick={handleLogout} className="text-gray-400 hover:bg-white/10">
+                <Icon name="LogOut" size={18} />
               </Button>
             </div>
           ) : (
             <Button 
               onClick={() => setShowAuthModal(true)} 
-              variant="ghost"
-              className="text-white hover:bg-white/10"
+              className="text-white bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700"
             >
-              <Icon name="Search" size={20} />
+              <Icon name="LogIn" size={18} className="mr-2" />
+              Вход
             </Button>
           )}
         </div>
@@ -376,24 +439,65 @@ const Index = () => {
             <CardHeader>
               <div className="text-center mb-4">
                 <div className="text-6xl mb-4">💙</div>
-                <CardTitle className="text-2xl text-white">Создай аккаунт</CardTitle>
-                <CardDescription className="text-gray-400 text-base">Получи 1000 ЛК в подарок</CardDescription>
+                <CardTitle className="text-2xl text-white">
+                  {authMode === 'register' ? 'Создай аккаунт' : 'Вход'}
+                </CardTitle>
+                <CardDescription className="text-gray-400 text-base">
+                  {authMode === 'register' ? 'Получи 1000 ЛК в подарок' : 'Рад видеть тебя снова!'}
+                </CardDescription>
               </div>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4" onSubmit={(e) => {
-                e.preventDefault();
-                setIsLoggedIn(true);
-                setUserBalance(1000);
-                setShowAuthModal(false);
-              }}>
-                <Input placeholder="Твой никнейм 😎" className="h-12 bg-white/5 border-white/10 text-white" />
-                <Input type="email" placeholder="Email" className="h-12 bg-white/5 border-white/10 text-white" />
-                <Input type="password" placeholder="Пароль" className="h-12 bg-white/5 border-white/10 text-white" />
+              <form className="space-y-4" onSubmit={handleAuth}>
+                {authError && (
+                  <div className="bg-red-500/10 border border-red-500/30 text-red-400 p-3 rounded-lg text-sm">
+                    {authError}
+                  </div>
+                )}
+                
+                <Input 
+                  placeholder="Логин 😎" 
+                  className="h-12 bg-white/5 border-white/10 text-white" 
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+                
+                {authMode === 'register' && (
+                  <Input 
+                    type="email" 
+                    placeholder="Email" 
+                    className="h-12 bg-white/5 border-white/10 text-white"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                )}
+                
+                <Input 
+                  type="password" 
+                  placeholder="Пароль" 
+                  className="h-12 bg-white/5 border-white/10 text-white"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                
                 <Button type="submit" className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white h-12 text-lg font-bold border-0">
                   <Icon name="Rocket" size={20} className="mr-2" />
-                  Начать 🚀
+                  {authMode === 'register' ? 'Начать 🚀' : 'Войти'}
                 </Button>
+                
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAuthMode(authMode === 'login' ? 'register' : 'login');
+                    setAuthError('');
+                  }}
+                  className="w-full text-gray-400 hover:text-white text-sm transition-colors"
+                >
+                  {authMode === 'register' ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
+                </button>
                 <div className="text-center">
                   <button 
                     type="button"
