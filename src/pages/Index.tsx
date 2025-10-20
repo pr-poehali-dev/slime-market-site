@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +11,26 @@ const Index = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [userBalance, setUserBalance] = useState(1250);
   const [currentSlide, setCurrentSlide] = useState(1);
+
+  // Авто-логин для незарегистрированных пользователей
+  useEffect(() => {
+    const hasAccount = localStorage.getItem('userAccount');
+    if (!hasAccount) {
+      // Создаём гостевой аккаунт
+      const guestId = 'guest_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('userAccount', guestId);
+      localStorage.setItem('userBalance', '1000');
+      setUserBalance(1000);
+      setIsLoggedIn(true);
+    } else {
+      // Загружаем данные существующего пользователя
+      const savedBalance = localStorage.getItem('userBalance');
+      if (savedBalance) {
+        setUserBalance(parseInt(savedBalance));
+      }
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1e1e2e] via-[#27293d] to-[#1a1d2e]">

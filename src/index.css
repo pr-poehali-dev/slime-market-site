@@ -92,6 +92,18 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap");
 
+@font-face {
+  font-family: "Soledago";
+  src:
+    url("https://fonts-online.ru/fonts/soledago/SoledagoRegular.woff2")
+      format("woff2"),
+    url("https://fonts-online.ru/fonts/soledago/SoledagoRegular.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -103,8 +115,21 @@
 }
 
 body {
-  font-family: "Sora", sans-serif;
+  font-family: "Soledago", sans-serif;
   background: linear-gradient(135deg, #1e1e2e 0%, #27293d 50%, #1a1d2e 100%);
+}
+
+/* Английский текст - Soledago */
+:lang(en),
+[lang="en"] {
+  font-family: "Soledago", sans-serif;
+}
+
+/* Русский текст - Soledago (тот же шрифт поддерживает кириллицу) */
+:lang(ru),
+[lang="ru"],
+body {
+  font-family: "Soledago", sans-serif;
 }
 
 h1,
@@ -113,7 +138,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Sora", sans-serif;
+  font-family: "Soledago", sans-serif;
   font-weight: 700;
 }
 
