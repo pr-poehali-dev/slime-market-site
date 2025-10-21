@@ -13,7 +13,6 @@ const Index = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [userBalance, setUserBalance] = useState(0);
@@ -55,7 +54,7 @@ const Index = () => {
     setAuthError('');
 
     const body = authMode === 'register' 
-      ? { action: 'register', username, email, password }
+      ? { action: 'register', username, password }
       : { action: 'login', username, password };
 
     try {
@@ -74,7 +73,6 @@ const Index = () => {
         setUserBalance(data.user.balance);
         setShowAuthModal(false);
         setPassword('');
-        setEmail('');
       } else {
         setAuthError(data.error || 'Ошибка авторизации');
       }
@@ -113,10 +111,8 @@ const Index = () => {
         showAuthModal={showAuthModal}
         authError={authError}
         username={username}
-        email={email}
         password={password}
         setUsername={setUsername}
-        setEmail={setEmail}
         setPassword={setPassword}
         setShowAuthModal={setShowAuthModal}
         handleAuth={handleAuth}

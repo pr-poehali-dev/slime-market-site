@@ -1,58 +1,65 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 interface CurrencySectionProps {
   setShowAuthModal: (show: boolean) => void;
 }
 
 export default function CurrencySection({ setShowAuthModal }: CurrencySectionProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+
   return (
-    <section id="currency" className="py-16 px-4 md:px-8">
+    <section id="currency" className="py-16 px-4 md:px-8" ref={ref}>
       <div className="container mx-auto">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-5xl font-bold text-white mb-4">
             Лизкоины 💰
           </h2>
           <p className="text-gray-400 text-lg">Внутренняя валюта рынка с крутыми бонусами</p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <Card className="hover-scale bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/30 transition-all text-center backdrop-blur-sm">
-            <CardHeader>
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center text-4xl">
-                🛒
-              </div>
-              <CardTitle className="text-xl text-white">Покупай</CardTitle>
-              <CardDescription className="text-gray-400 text-base">10% кэшбэк лизкоинами на каждую покупку</CardDescription>
-              <div className="text-3xl font-bold text-orange-400 mt-4">+100 ЛК</div>
-            </CardHeader>
-          </Card>
-
-          <Card className="hover-scale bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/30 transition-all text-center backdrop-blur-sm">
-            <CardHeader>
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center text-4xl">
-                💎
-              </div>
-              <CardTitle className="text-xl text-white">Майни крипту</CardTitle>
-              <CardDescription className="text-gray-400 text-base">Конвертируй криптовалюту в лизкоины</CardDescription>
-              <div className="text-3xl font-bold text-orange-400 mt-4">+500 ЛК</div>
-            </CardHeader>
-          </Card>
-
-          <Card className="hover-scale bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/30 transition-all text-center backdrop-blur-sm">
-            <CardHeader>
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center text-4xl">
-                🎁
-              </div>
-              <CardTitle className="text-xl text-white">Получай бонусы</CardTitle>
-              <CardDescription className="text-gray-400 text-base">Ежедневные задания и награды</CardDescription>
-              <div className="text-3xl font-bold text-orange-400 mt-4">+50 ЛК</div>
-            </CardHeader>
-          </Card>
+          {[
+            { icon: '🛒', title: 'Покупай', desc: '10% кэшбэк лизкоинами на каждую покупку', bonus: '+100 ЛК' },
+            { icon: '💎', title: 'Майни крипту', desc: 'Конвертируй криптовалюту в лизкоины', bonus: '+500 ЛК' },
+            { icon: '🎁', title: 'Получай бонусы', desc: 'Ежедневные задания и награды', bonus: '+50 ЛК' },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+            >
+              <Card className="hover-scale bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 hover:border-orange-500/30 transition-all text-center backdrop-blur-sm h-full">
+                <CardHeader>
+                  <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center text-4xl">
+                    {item.icon}
+                  </div>
+                  <CardTitle className="text-xl text-white">{item.title}</CardTitle>
+                  <CardDescription className="text-gray-400 text-base">{item.desc}</CardDescription>
+                  <div className="text-3xl font-bold text-orange-400 mt-4">{item.bonus}</div>
+                </CardHeader>
+              </Card>
+            </motion.div>
+          ))}
         </div>
 
-        <Card className="max-w-4xl mx-auto bg-gradient-to-br from-orange-950/30 to-red-950/30 border-orange-500/30 backdrop-blur-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          <Card className="max-w-4xl mx-auto bg-gradient-to-br from-orange-950/30 to-red-950/30 border-orange-500/30 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-3xl text-white flex items-center gap-2">
               <span className="text-4xl">🚀</span>
@@ -82,6 +89,7 @@ export default function CurrencySection({ setShowAuthModal }: CurrencySectionPro
             </Button>
           </CardContent>
         </Card>
+        </motion.div>
       </div>
     </section>
   );

@@ -3,19 +3,30 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import Icon from '@/components/ui/icon';
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 export default function CryptoSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+
   return (
-    <section id="crypto" className="py-16 px-4 md:px-8 bg-gradient-to-b from-transparent via-orange-950/5 to-transparent relative">
+    <section id="crypto" className="py-16 px-4 md:px-8 bg-gradient-to-b from-transparent via-orange-950/5 to-transparent relative" ref={ref}>
       <div className="absolute inset-0 bg-gradient-to-r from-orange-600/5 via-transparent to-red-600/5 pointer-events-none"></div>
       
       <div className="container mx-auto relative z-10">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-5xl font-bold text-white mb-4">
             Криптовалюты 💎
           </h2>
           <p className="text-gray-400 text-lg">Покупай, продавай и обменивай крипту</p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
@@ -24,7 +35,13 @@ export default function CryptoSection() {
             { name: 'Лизкоин', symbol: 'LZK', icon: '💙', price: '0.10', change: '+12.5%' },
             { name: 'Solana', symbol: 'SOL', icon: '◎', price: '98.5', change: '+7.1%' },
           ].map((crypto, idx) => (
-            <Card key={idx} className="hover-scale bg-gradient-to-br from-orange-950/20 to-red-950/20 border-orange-500/20 hover:border-orange-500/40 transition-all backdrop-blur-sm">
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+            >
+              <Card className="hover-scale bg-gradient-to-br from-orange-950/20 to-red-950/20 border-orange-500/20 hover:border-orange-500/40 transition-all backdrop-blur-sm h-full">
               <CardHeader>
                 <div className="flex justify-between items-start mb-4">
                   <div className="text-5xl">{crypto.icon}</div>
@@ -48,10 +65,16 @@ export default function CryptoSection() {
                 </Button>
               </CardHeader>
             </Card>
+            </motion.div>
           ))}
         </div>
 
-        <Card className="mt-8 max-w-4xl mx-auto bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 backdrop-blur-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          <Card className="mt-8 max-w-4xl mx-auto bg-gradient-to-br from-[#2a2d3e]/80 to-[#1e2130]/80 border-white/5 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-2xl flex items-center gap-2 text-white">
               <span className="text-3xl">⚡</span>
@@ -86,6 +109,7 @@ export default function CryptoSection() {
             </Button>
           </CardContent>
         </Card>
+        </motion.div>
       </div>
     </section>
   );
