@@ -50,10 +50,10 @@ export default function GamesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-6xl md:text-7xl font-black text-white mb-6 tracking-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 md:mb-6 tracking-tight">
             🎮 Игры
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto px-4">
             Зарабатывай валюту играя в увлекательные мини-игры
           </p>
         </motion.div>
@@ -67,25 +67,25 @@ export default function GamesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative"
             >
-              <div className="relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105">
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${game.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon name={game.icon as any} size={32} className="text-white" />
+              <div className="relative bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105">
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl bg-gradient-to-br ${game.color} flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon name={game.icon as any} size={24} className="text-white sm:w-8 sm:h-8" />
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-2">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
                   {game.title}
                 </h3>
-                <p className="text-gray-400 mb-4 text-sm">
+                <p className="text-gray-400 mb-3 sm:mb-4 text-xs sm:text-sm">
                   {game.description}
                 </p>
 
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-green-400 font-medium">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs sm:text-sm text-green-400 font-medium">
                     {game.reward}
                   </span>
                   <Button 
                     size="sm" 
-                    className={`bg-gradient-to-r ${game.color} hover:opacity-90 transition-opacity`}
+                    className={`bg-gradient-to-r ${game.color} hover:opacity-90 transition-opacity text-xs sm:text-sm px-3 sm:px-4`}
                   >
                     Играть
                   </Button>

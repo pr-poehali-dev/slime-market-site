@@ -6,8 +6,8 @@
       "path": "/",
       "body": {
         "action": "register",
-        "username": "testuser",
-        "email": "test@example.com",
+        "username": "newuser123",
+        "email": "",
         "password": "testpass123"
       },
       "expectedStatus": 200,

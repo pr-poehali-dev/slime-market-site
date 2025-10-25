@@ -81,11 +81,11 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 email = body.get('email', '').strip()
                 password = body.get('password', '')
                 
-                if not username or not email or not password:
+                if not username or not password:
                     return {
                         'statusCode': 400,
                         'headers': cors_headers,
-                        'body': json.dumps({'error': 'Заполни все поля'})
+                        'body': json.dumps({'error': 'Введи логин и пароль'})
                     }
                 
                 if len(password) < 6:
@@ -99,7 +99,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 
                 cursor.execute(
                     "INSERT INTO t_p76583320_slime_market_site.users (username, email, password_hash, balance) VALUES (%s, %s, %s, %s) RETURNING id, username, balance",
-                    (username, email, password_hash, 1000)
+                    (username, email or '', password_hash, 1000)
                 )
                 user = cursor.fetchone()
                 conn.commit()

@@ -19,10 +19,10 @@ export default function HeroSection() {
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-7xl md:text-8xl font-black text-white mb-6 tracking-tight leading-none">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-4 md:mb-6 tracking-tight leading-none">
                 SpaceAge
               </h1>
-              <p className="text-gray-400 text-lg max-w-md leading-relaxed">
+              <p className="text-gray-400 text-base md:text-lg max-w-md leading-relaxed">
                 The year is 3030, hyper-warp to mega speed and peer into a futuristic anti gravitational lookbook
               </p>
             </motion.div>
@@ -48,7 +48,7 @@ export default function HeroSection() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="absolute -right-4 top-8 text-right z-10">
+            <div className="hidden lg:block absolute -right-4 top-8 text-right z-10">
               <div className="text-gray-500 text-sm mb-2">Sophia Ledbetter</div>
               <div className="flex items-center gap-4 justify-end">
                 <span className="text-white text-4xl font-bold">01</span>
@@ -62,7 +62,7 @@ export default function HeroSection() {
               <img 
                 src="https://cdn.poehali.dev/files/a8b706a6-bea0-43c9-a8f9-ff4e62aca159.png"
                 alt="SpaceAge Collection"
-                className="w-full h-[600px] object-cover"
+                className="w-full h-[400px] sm:h-[500px] md:h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1e1e2e] via-transparent to-transparent z-5"></div>
             </div>
