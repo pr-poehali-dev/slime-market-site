@@ -9,9 +9,11 @@ interface AuthModalProps {
   authError: string;
   username: string;
   password: string;
+  authMode: 'login' | 'register';
   setUsername: (value: string) => void;
   setPassword: (value: string) => void;
   setShowAuthModal: (show: boolean) => void;
+  setAuthMode: (mode: 'login' | 'register') => void;
   handleAuth: (e: React.FormEvent) => void;
 }
 
@@ -20,9 +22,11 @@ export default function AuthModal({
   authError,
   username,
   password,
+  authMode,
   setUsername,
   setPassword,
   setShowAuthModal,
+  setAuthMode,
   handleAuth,
 }: AuthModalProps) {
   return (
@@ -44,9 +48,13 @@ export default function AuthModal({
             <Card className="max-w-md w-full bg-[#1a1a2e] border-white/10 shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <CardHeader>
           <div className="text-center mb-4">
-            <div className="text-6xl mb-4">💙</div>
-            <CardTitle className="text-2xl text-white">Создай аккаунт</CardTitle>
-            <CardDescription className="text-gray-400 text-base">Получи 1000 ЛК в подарок</CardDescription>
+            <div className="text-6xl mb-4">{authMode === 'register' ? '💙' : '🔐'}</div>
+            <CardTitle className="text-2xl text-white">
+              {authMode === 'register' ? 'Создай аккаунт' : 'Войти в аккаунт'}
+            </CardTitle>
+            <CardDescription className="text-gray-400 text-base">
+              {authMode === 'register' ? 'Получи 1000 ЛК в подарок' : 'С возвращением! 👋'}
+            </CardDescription>
           </div>
         </CardHeader>
         <CardContent>
@@ -75,10 +83,17 @@ export default function AuthModal({
             />
             
             <Button type="submit" className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white h-12 text-lg font-bold border-0">
-              <Icon name="Rocket" size={20} className="mr-2" />
-              Начать 🚀
+              <Icon name={authMode === 'register' ? "Rocket" : "LogIn"} size={20} className="mr-2" />
+              {authMode === 'register' ? 'Начать 🚀' : 'Войти'}
             </Button>
-            <div className="text-center">
+            <div className="text-center flex justify-between">
+              <button 
+                type="button"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
+                onClick={() => setAuthMode(authMode === 'register' ? 'login' : 'register')}
+              >
+                {authMode === 'register' ? 'Уже есть аккаунт?' : 'Создать аккаунт'}
+              </button>
               <button 
                 type="button"
                 className="text-sm text-gray-400 hover:text-white transition-colors"

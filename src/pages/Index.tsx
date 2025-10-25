@@ -114,9 +114,11 @@ const Index = () => {
         authError={authError}
         username={username}
         password={password}
+        authMode={authMode}
         setUsername={setUsername}
         setPassword={setPassword}
         setShowAuthModal={setShowAuthModal}
+        setAuthMode={setAuthMode}
         handleAuth={handleAuth}
       />
 
