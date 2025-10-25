@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -28,17 +29,37 @@ export default function Header({
   handleAuth,
   handleLogout,
 }: HeaderProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const menuItems = [
+    { id: 'collection', label: 'Коллекция', icon: 'Grid3x3' },
+    { id: 'games', label: 'Игры', icon: 'Gamepad2' },
+    { id: 'crypto', label: 'Крипта', icon: 'Coins' },
+    { id: 'currency', label: 'Валюта', icon: 'Wallet' },
+  ];
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#1a1d2e]/80 backdrop-blur-md border-b border-white/5">
       <div className="container flex h-16 items-center justify-between">
-        <button className="p-2 hover:bg-white/5 rounded-lg transition-colors">
-          <Icon name="Menu" size={24} className="text-white" />
+        <button 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="p-2 hover:bg-white/5 rounded-lg transition-colors"
+        >
+          <Icon name={isMenuOpen ? "X" : "Menu"} size={24} className="text-white" />
         </button>
         
         <nav className="hidden md:flex gap-8 items-center absolute left-1/2 -translate-x-1/2">
-          <a href="#collection" className="text-white font-medium border-b-2 border-white pb-1">collection</a>
-          <a href="#about" className="text-gray-400 hover:text-white transition-colors">about</a>
-          <a href="#editorial" className="text-gray-400 hover:text-white transition-colors">editorial</a>
+          {menuItems.map((item) => (
+            <a 
+              key={item.id}
+              href={`#${item.id}`} 
+              className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Icon name={item.icon as any} size={18} />
+              {item.label}
+            </a>
+          ))}
         </nav>
 
         {isLoggedIn ? (
@@ -98,6 +119,24 @@ export default function Header({
           </div>
         )}
       </div>
+
+      {isMenuOpen && (
+        <div className="md:hidden bg-[#1a1d2e]/95 backdrop-blur-md border-t border-white/5">
+          <nav className="container py-4 flex flex-col gap-2">
+            {menuItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors text-white"
+              >
+                <Icon name={item.icon as any} size={20} />
+                <span className="font-medium">{item.label}</span>
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
+import GamesSection from '@/components/GamesSection';
 import CryptoSection from '@/components/CryptoSection';
 import CurrencySection from '@/components/CurrencySection';
 import AuthModal from '@/components/AuthModal';
@@ -104,6 +105,7 @@ const Index = () => {
       />
 
       <HeroSection />
+      <GamesSection />
       <CryptoSection />
       <CurrencySection setShowAuthModal={setShowAuthModal} />
 
