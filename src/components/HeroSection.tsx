@@ -67,7 +67,6 @@ export default function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#1e1e2e] via-transparent to-transparent z-5"></div>
             </div>
           </motion.div>
-          </div>
         </div>
       </div>
     </section>
